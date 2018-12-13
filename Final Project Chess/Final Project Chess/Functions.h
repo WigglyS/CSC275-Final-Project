@@ -13,7 +13,7 @@ public:
 	vector<int> GetPosition();
 	void SetPosition(int x, int y);
 	void SetPlayer(int P);
-
+	int GetPlayer();
 	bool move();
 protected:
 	vector<int>Position;
@@ -23,32 +23,32 @@ protected:
  class Pawn : public Peice{
  public:
 	 Pawn(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  };
  class Rook : public Peice {
  public:
 	 Rook(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  };
  class Knight : public Peice {
  public:
 	 Knight(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  };
  class Bishop : public Peice {
  public:
 	 Bishop(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  };
  class Queen : public Peice {
  public:
 	 Queen(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  }; 
  class King : public Peice {
  public:
 	 King(int x, int y);
-	 bool move();
+	 bool move(int x, int y);
  };
 
 //board class to display the board and keep track of the peieces turns etc.
