@@ -51,7 +51,7 @@ protected:
 	 bool move();
  };
 
-//board class to display the board and keep track of the peieces
+//board class to display the board and keep track of the peieces turns etc.
 class Board {
 public:
 	void addpeice(Peice p);
@@ -59,7 +59,10 @@ public:
 	void Display();
 	void Reset();
 	void select();
+	void SetTurn(int t);
+	int Getturn();
 private:
+	int turn;
 	vector<Peice*>Peices;
 	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };;
 };
@@ -68,9 +71,5 @@ private:
 class GameManager {
 public:
 	void Instructions();
-	int Getturn();
-	void SetTurn(int t);
-	void select();
 private:
-	int turn;
 };

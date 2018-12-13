@@ -7,6 +7,7 @@ void main() {
 	GM.Instructions();
 	B.Reset();
 	B.Display();
+	B.select();
 
 	system("pause");
 }

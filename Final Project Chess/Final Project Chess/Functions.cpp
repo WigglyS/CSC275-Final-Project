@@ -26,6 +26,8 @@ King::King(int x, int y) { Position.push_back(x); Position.push_back(y); }
 
 void Board::addpeice(Peice p) { Peices.push_back(&p); };
 void Board::removePeice(Peice* p) { };
+int Board::Getturn() { return turn; };
+void Board::SetTurn(int t) { turn = t; };
 
 //Displays the board to the consol so you can see it
 void Board::Display() { 
@@ -48,6 +50,7 @@ void Board::Display() {
 // set the board up to the correct configuration to start in
 void Board::Reset() {
 	Peices.clear();
+	turn = 0;
 	for (int i = 0; i < 8; i++){
 		Peices.push_back(new Pawn(1,i));
 		Peices[i]->SetPosition(1, i);
@@ -102,14 +105,23 @@ void Board::Reset() {
 	rows[7][3] = 'Q';
 };
 
+// function where the player selects the peice they want to move
 void Board::select() {
 	int X;
 	int Y;
 	vector<int> coordinents;
 	vector<int> Temp;
-	cout << "Enter the x coridnent of the space of the peice you would like to move : ";
+	if (turn == 0) {
+		cout << "It is the Uppercase letters persons turn" << endl;
+	}
+	else if (turn == 1) {
+		cout << "It is the Lowercase letters persons turn" << endl;
+	}
+	
+
+	cout << endl << "Enter the x coridnent of the space of the peice you would like to move : ";
 	cin >> X;
-	cout << "Enter the Y coridnent of the space of the peice you would like to move : ";
+	cout << endl << "Enter the Y coridnent of the space of the peice you would like to move : ";
 	cin >> Y;
 
 	coordinents.push_back(X);
@@ -117,11 +129,12 @@ void Board::select() {
 	
 	for (int i = 0; i < Peices.size(); i++) {
 		Temp = Peices[i]->GetPosition();
-		if ((Temp[0] = coordinents[0]) && (Temp[1] = coordinents[1])) {
+		if ((Temp[0] == coordinents[0]) && (Temp[1] == coordinents[1])) {
 
+			cout << "move";
 			//do the whole moving the peice thingy;
 		}
-		else {
+		else{
 			cout << "That is not a valid peice" << endl;
 		}
 	}
@@ -132,13 +145,4 @@ void GameManager::Instructions(){
 	cout << " " << endl;
 	system("pause");
 };
-int GameManager::Getturn() { return turn; };
-void GameManager::SetTurn(int t) { turn = t; };
-void GameManager::select() {
-	int X;
-	int Y;
-	cout << "Enter the x coridnent of the space of the peice you would like to move : ";
-	cin >> X;
-	cout << "Enter the Y coridnent of the space of the peice you would like to move : ";
-	cin >> Y;
-};
+
