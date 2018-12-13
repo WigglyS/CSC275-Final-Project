@@ -6,6 +6,7 @@ void main() {
 	GameManager GM;
 
 	int GameLoop = 0;
+
 	GM.Instructions();
 	B.Reset();
 	do {

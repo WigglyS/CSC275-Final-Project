@@ -158,8 +158,9 @@ void Board::Reset() {
 	rows[7][3] = 'Q';
 };
 
-// function where the player selects the peice they want to move
+// function where the player selects the peice they want to move and moves it
 void Board::select() {
+	//first displays which players turn it is
 	int X;
 	int Y;
 	if (turn == 1) {
@@ -169,7 +170,7 @@ void Board::select() {
 		cout << endl << "It is the Lowercase letters persons turn" << endl;
 	}
 	
-
+	// has the player pick the peice they want to move
 	vector<int> Temp;
 	vector<int> coordinents = { 0,0 };
 	int HasSelected = 0;
@@ -203,7 +204,7 @@ void Board::select() {
 		}
 	} while (HasSelected == 0);
 	
-
+	//actually moves the peice
 	int validMove = 0;
 	do {
 		int MoveX;
@@ -227,7 +228,7 @@ void Board::select() {
 	} while (validMove = 0);
 };
 
-
+// instructions for the game
 void GameManager::Instructions(){
 	cout << "Welcome to my basic chess game!!" << endl;
 	cout << "The players peices are distingushed through uppercase vs lowercase letters" << endl;

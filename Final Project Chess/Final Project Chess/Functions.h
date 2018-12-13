@@ -20,6 +20,7 @@ protected:
 	char Player;
 };
 
+// all the peice subclasses have difrent ways to move
  class Pawn : public Peice{
  public:
 	 Pawn(int x, int y);
