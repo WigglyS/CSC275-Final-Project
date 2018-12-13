@@ -12,6 +12,7 @@ public:
 	Peice(int x,int y);
 	vector<int> GetPosition();
 	void SetPosition(int x, int y);
+	void SetPlayer(int P);
 
 	bool move();
 protected:
@@ -25,18 +26,28 @@ protected:
 	 bool move();
  };
  class Rook : public Peice {
+ public:
+	 Rook(int x, int y);
 	 bool move();
  };
  class Knight : public Peice {
+ public:
+	 Knight(int x, int y);
 	 bool move();
  };
  class Bishop : public Peice {
+ public:
+	 Bishop(int x, int y);
 	 bool move();
  };
  class Queen : public Peice {
+ public:
+	 Queen(int x, int y);
 	 bool move();
  }; 
  class King : public Peice {
+ public:
+	 King(int x, int y);
 	 bool move();
  };
 
@@ -44,9 +55,10 @@ protected:
 class Board {
 public:
 	void addpeice(Peice p);
-	void removePeice(Peice p);
+	void removePeice(Peice* p);
 	void Display();
 	void Reset();
+	void select();
 private:
 	vector<Peice*>Peices;
 	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };;
