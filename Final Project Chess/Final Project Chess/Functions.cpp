@@ -33,16 +33,16 @@ void Board::SetTurn(int t) { turn = t; };
 void Board::Display() { 
 	system("CLS");
 	int Numbering[8] = { 0,1,2,3,4,5,6,7 };
-	cout << "    ";
+	cout << "     ";
 	
 	for (int x = 0; x < 8; x++) {
 		cout << Numbering[x] << " ";
 	}
 	cout << endl;
-	cout << "  ====================" << endl;//
+	cout << "  =====================" << endl;//
 
 	for (int x = 0; x < rows->size(); x++) {
-		cout <<Numbering[x] << " = ";//
+		cout <<Numbering[x] << " =  ";//
 		for (int y = 0; y < 9; y++) {
 			cout  << rows[x][y] ;
 			if (y < 8) {
@@ -51,8 +51,8 @@ void Board::Display() {
 		}
 		cout << "=" << endl;//
 	}
-	cout << "  ====================" << endl;//
-	cout << "    ";
+	cout << "  =====================" << endl;//
+	cout << "     ";
 	for (int x = 0; x < 8; x++) {
 		cout << Numbering[x] << " ";
 	}
