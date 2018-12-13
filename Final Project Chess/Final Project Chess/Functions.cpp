@@ -33,18 +33,30 @@ void Board::SetTurn(int t) { turn = t; };
 void Board::Display() { 
 	system("CLS");
 	int Numbering[8] = { 0,1,2,3,4,5,6,7 };
-	cout << "  ";
+	cout << "    ";
+	
 	for (int x = 0; x < 8; x++) {
 		cout << Numbering[x] << " ";
 	}
 	cout << endl;
+	cout << "  ====================" << endl;//
+
 	for (int x = 0; x < rows->size(); x++) {
-		cout <<Numbering[x] << " ";
+		cout <<Numbering[x] << " = ";//
 		for (int y = 0; y < 9; y++) {
-			cout  << rows[x][y] << " " ;
+			cout  << rows[x][y] ;
+			if (y < 8) {
+				cout << " ";
+			}
 		}
-		cout << endl;
+		cout << "=" << endl;//
 	}
+	cout << "  ====================" << endl;//
+	cout << "    ";
+	for (int x = 0; x < 8; x++) {
+		cout << Numbering[x] << " ";
+	}
+	cout << endl;
 };
 
 // set the board up to the correct configuration to start in
@@ -151,22 +163,22 @@ void Board::select() {
 	int X;
 	int Y;
 	if (turn == 1) {
-		cout << "It is the Uppercase letters persons turn" << endl;
+		cout << endl << "It is the Uppercase letters persons turn" << endl;
 	}
 	else if (turn == 0) {
-		cout << "It is the Lowercase letters persons turn" << endl;
+		cout << endl << "It is the Lowercase letters persons turn" << endl;
 	}
 	
 
 	vector<int> Temp;
 	vector<int> coordinents = { 0,0 };
 	int HasSelected = 0;
-	Peice Selected;
+	Peice* Selected = NULL;
 	do {
 
-		cout << endl << "Enter the x coridnent of the space of the peice you would like to move : ";
+		cout << endl << "Enter the x coordinate of the space of the peice you would like to move : ";
 		cin >> X;
-		cout << endl << "Enter the Y coridnent of the space of the peice you would like to move : ";
+		cout << endl << "Enter the Y coordinate of the space of the peice you would like to move : ";
 		cin >> Y;
 
 		coordinents[0]= X;
@@ -177,37 +189,62 @@ void Board::select() {
 			Temp = Peices[i]->GetPosition();
 			if ((Temp[0] == coordinents[0]) && (Temp[1] == coordinents[1])) {
 				if ((Peices[i]->GetPlayer()) == turn) {
-					Selected = *Peices[i];
+					Selected = Peices[i];
 					HasSelected = 1;
 					break;
 				}
 				else {
-					cout << "that is not your Peice"<< endl;
+					cout << "That is not your Peice"<< endl;
 				}
 			}
 		}
 		if (HasSelected == 0) {
-			cout << "that is not a valid peice" << endl;
+			cout << "That is not a valid peice" << endl;
 		}
 	} while (HasSelected == 0);
 	
-	
-	
 
-	int MoveX;
-	int MoveY;
+	int validMove = 0;
+	do {
+		int MoveX;
+		int MoveY;
 
-	cout << "move";
-	//do the whole moving the peice thingy
-	cout << endl << "Enter the x coridnent of the space you would like to move to : ";
-	cin >> MoveX;
-	cout << endl << "Enter the Y coridnent of the space you would like to move to : ";
-	cin >> MoveY;
+		//do the whole moving the peice thingy
+		cout << endl << "Enter the x coordinate of the space you would like to move to : ";
+		cin >> MoveX;
+		cout << endl << "Enter the Y coordinate of the space you would like to move to : ";
+		cin >> MoveY;
+
+		if (Selected->move() == true) {
+			//Actually move the peice
+			cout << "valid Move";
+			rows[MoveY][MoveX] = '1';
+			validMove = 1;
+		}
+		else {
+			cout << "That is not a Valid Move" << endl;
+		}
+	} while (validMove = 0);
 };
 
 
 void GameManager::Instructions(){
-	cout << " " << endl;
-	system("pause");
+	cout << "Welcome to my basic chess game!!" << endl;
+	cout << "The players peices are distingushed through uppercase vs lowercase letters" << endl;
+	cout << "p/P = Pawn		r/R = Rook" << endl;
+	cout << "n/N = Knight		b/B = Bishop" << endl;
+	cout << "q/Q = Queen		k/K = King" << endl;
+	cout << "Type 'Help' for Rules and 'Play' to start the Game." << endl;
+	int play = 0;
+	do {
+		string input;
+		cin >> input;
+		if ((input == "Help") || (input == "help")){
+			cout << "rules" << endl;
+		}
+		if ((input == "Play") || (input == "play")) {
+			play = 1;
+		}
+	} while (play == 0);
 };
 
