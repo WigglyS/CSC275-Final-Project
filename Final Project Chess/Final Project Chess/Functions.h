@@ -14,7 +14,7 @@ public:
 	void SetPosition(int x, int y);
 	void SetPlayer(int P);
 	int GetPlayer();
-	bool move(int x, int y);
+	virtual bool move(int x, int y);
 	void Settype(char t);
 	char Gettype();
 protected:
@@ -27,9 +27,9 @@ protected:
  class Pawn : public Peice{
  public:
 	 Pawn(int x, int y);
-	 bool move(int x, int y);
+	 bool move(int x, int y) override;
  private:
-	 char type;
+	 int FirstMove = 0;
  };
  class Rook : public Peice {
  public:

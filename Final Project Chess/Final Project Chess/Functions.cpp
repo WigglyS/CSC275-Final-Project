@@ -13,23 +13,33 @@ char Peice::Gettype() { return type; };
 
 //Move functions that returns true if spot is valid to move to and constructors
 bool Peice::move(int x, int y) { return true; };
+//pawns can move 2 forward on their first move but every other only one // cant quite figure out how to make them attack diagnally yet
 bool Pawn::move(int x, int y) {
 	if ((Position[0] != x) || (Position[1] != y)) {
 		if (Player == 0) {
+			
 			if ((Position[0] == x) && (Position[1] + 1 == y)) {
+				FirstMove = 1;
+				return true;
+			}
+			else if ((FirstMove == 0) && (Position[0] == x) && (Position[1] + 2 == y)) {
+				FirstMove = 1;
 				return true;
 			}
 			else {
-				cout << "That is not a Valid move" << endl;
 				return false;
 			}
 		}
 		if (Player == 1) {
+
 			if ((Position[0] == x) && (Position[1] - 1 == y)) {
 				return true;
 			}
+			else if ((FirstMove == 0) && (Position[0] == x) && (Position[1] - 2 == y)) {
+				FirstMove = 1;
+				return true;
+			}
 			else {
-				cout << "That is not a Valid move" << endl;
 				return false;
 			}
 		}
@@ -42,15 +52,25 @@ bool Pawn::move(int x, int y) {
 	
 };
 Pawn::Pawn(int x, int y) { Position.push_back(x); Position.push_back(y); }
-bool Rook::move(int x, int y) { return true; };
+bool Rook::move(int x, int y) { 
+	return true; 
+};
 Rook::Rook(int x, int y) { Position.push_back(x); Position.push_back(y); }
-bool Knight::move(int x, int y) { return true; };
+bool Knight::move(int x, int y) { 
+	return true;
+};
 Knight::Knight(int x, int y) { Position.push_back(x); Position.push_back(y); }
-bool Bishop::move(int x, int y) { return true; };
+bool Bishop::move(int x, int y) { 
+	return true; 
+};
 Bishop::Bishop(int x, int y) { Position.push_back(x); Position.push_back(y); }
-bool Queen::move(int x, int y) { return true; };
+bool Queen::move(int x, int y) { 
+	return true; 
+};
 Queen::Queen(int x, int y) { Position.push_back(x); Position.push_back(y); }
-bool King::move(int x, int y) { return true; };
+bool King::move(int x, int y) { 
+	return true; 
+};
 King::King(int x, int y) { Position.push_back(x); Position.push_back(y); }
 
 void Board::addpeice(Peice p) { Peices.push_back(&p); };
@@ -96,7 +116,7 @@ void Board::Reset() {
 		Peices.push_back(new Pawn(i,1));
 		//Peices[i]->SetPosition(1, i);
 		Peices[i]->SetPlayer(0);
-		Peices[i]->Settype('p');
+		Peices[i]->Settype('o');
 	}
 	Peice* temp = new Rook(0, 0);
 
@@ -137,7 +157,7 @@ void Board::Reset() {
 	temp = new Queen(3, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0); 
-	temp->Settype('Q');
+	temp->Settype('q');
 	
 	for (int i = 0; i < 8; i++) {
 		temp = (new Pawn(i, 6));
@@ -198,7 +218,6 @@ void Board::select() {
 	//first displays which players turn it is
 	int X;
 	int Y;
-	cout << turn;
 	if (turn == 1) {
 		cout << endl << "It is the Uppercase letters persons turn" << endl;
 	}
@@ -208,7 +227,6 @@ void Board::select() {
 	
 	// has the player pick the peice they want to move
 	vector<int> Temp;
-	
 	int HasSelected = 0;
 	Peice* Selected = NULL;
 	do {
@@ -241,27 +259,35 @@ void Board::select() {
 	//actually moves the peice
 	int validMove = 0;
 	do {
+		// gets the user input of where they want to move
 		int MoveX;
 		int MoveY;
 
-		//do the whole moving the peice thingy
 		cout << endl << "Enter the x coordinate of the space you would like to move to : ";
 		cin >> MoveX;
 		cout << endl << "Enter the Y coordinate of the space you would like to move to : ";
 		cin >> MoveY;
 
 		if (Selected->move(MoveX,MoveY) == true) {
-			//Actually move the peice
-			//cout << "valid Move";
+			for (int i = 0; i < Peices.size(); i++) {
+				Temp = Peices[i]->GetPosition();
+				if ((Temp[0] == MoveX) && (Temp[1] == MoveY)) {
+					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl;
+					delete Peices[i];
+				}
+			}
 			rows[MoveY][MoveX] = Selected->Gettype();
 			vector<int>temp = Selected->GetPosition();
 			rows[temp[1]][temp[0]] = '.';
+			Selected->SetPosition(MoveX, MoveY);
 			validMove = 1;
+		
 		}
 		else {
 			cout << "That is not a Valid Move" << endl;
 		}
-	} while (validMove = 0);
+	} while (validMove == 0);
+	system("pause");
 };
 
 // instructions for the game
