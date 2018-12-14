@@ -9,6 +9,14 @@ void main() {
 
 	GM.Instructions();
 	B.Reset();
+	string name1;
+	string name2;
+	cout << "Enter players names: \nUpperCase Player(goes first) :";
+	cin >> name1;
+	cout << endl << "Lowercase Player(goes second) :";
+	cin >> name2;
+
+	B.Setnames(name1, name2);
 	do {
 		B.Display();
 		B.select();

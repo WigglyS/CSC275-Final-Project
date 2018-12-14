@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<fstream>
 
 using namespace std;
 
@@ -68,11 +69,12 @@ public:
 	void select();
 	void SetTurn(int t);
 	int Getturn();
+	void Setnames(string name1,string name2);
 	int GameEnd;
 	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };
 private:
 	int turn;
-	
+	string Names[2];
 	vector<Peice*>Peices;
 	
 };

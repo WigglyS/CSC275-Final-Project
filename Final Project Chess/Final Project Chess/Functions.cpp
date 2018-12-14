@@ -50,6 +50,8 @@ bool Pawn::move(int x, int y) {
 	}
 };
 Pawn::Pawn(int x, int y) { Position.push_back(x); Position.push_back(y); }
+
+//will make all the others limit movement if i have time :/
 bool Rook::move(int x, int y) { 
 	return true; 
 };
@@ -84,6 +86,7 @@ void Board::addpeice(Peice p) { Peices.push_back(&p); };
 void Board::removePeice(Peice* p) { };
 int Board::Getturn() { return turn; };
 void Board::SetTurn(int t) { turn = t; };
+void Board::Setnames(string name1, string name2) { Names[0] = name1; Names[1] = name2; };
 
 //Displays the board to the consol so you can see it
 void Board::Display() { 
@@ -123,7 +126,7 @@ void Board::Reset() {
 		Peices.push_back(new Pawn(i,1));
 		//Peices[i]->SetPosition(1, i);
 		Peices[i]->SetPlayer(0);
-		Peices[i]->Settype('o');
+		Peices[i]->Settype('p');
 	}
 	Peice* temp = new Rook(0, 0);
 
@@ -226,10 +229,10 @@ void Board::select() {
 	int X;
 	int Y;
 	if (turn == 1) {
-		cout << endl << "It is the Uppercase letters persons turn" << endl;
+		cout << endl << "It is " << Names[0]<<"'s turn (Uppercase letters)" << endl;
 	}
 	else if (turn == 0) {
-		cout << endl << "It is the Lowercase letters persons turn" << endl;
+		cout << endl << "It is " << Names[1] << "'s turn (Lowercase letters)" << endl;
 	}
 	
 	// has the player pick the peice they want to move
@@ -281,12 +284,20 @@ void Board::select() {
 				if ((Temp[0] == MoveX) && (Temp[1] == MoveY)) {
 					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl; 
 					if (Peices[i]->Gettype() == 'k') {
-						cout << "The Uppercase Player won the Game!" << endl;
+						cout << Names[0] << "won the Game! (Uppercase Letters)" << endl;
 						GameEnd = 1;
+						ofstream outfile;
+						outfile.open("Recorded Games");
+						outfile << Names[0] << " Vs " << Names[1] << ", " << Names[0] << " won the game" << endl;
+						outfile.close();
 					}
 					if (Peices[i]->Gettype() == 'K') {
-						cout << "The Lowercase Player won the Game!" << endl;
+						cout << Names[1] <<" won the Game! (Lowercase letters)" << endl;
 						GameEnd = 1;
+						ofstream outfile;
+						outfile.open("Recorded Games");
+						outfile << Names[0] << " Vs " << Names[1] << ", " << Names[1] << " won the game" << endl;
+						outfile.close();
 					}
 					Peices.erase(Peices.begin()+(i));
 					
@@ -318,7 +329,7 @@ void GameManager::Instructions(){
 		string input;
 		cin >> input;
 		if ((input == "Help") || (input == "help")){
-			cout << "rules" << endl;
+			cout << "rules that i havent put in yet :/" << endl;
 		}
 		if ((input == "Play") || (input == "play")) {
 			play = 1;
