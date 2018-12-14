@@ -329,7 +329,12 @@ void GameManager::Instructions(){
 		string input;
 		cin >> input;
 		if ((input == "Help") || (input == "help")){
-			cout << "rules that i havent put in yet :/" << endl;
+			cout << "Pawns(p/P) can move only forward in a straight line. if its their first move they can move 2 spaces otherwise they can only move one. It cannot pass through other peices " << endl;
+			cout << "Rook(r/R) can move any amount of spaces directly forward or  to the sides. It cannot pass through other peices" << endl;
+			cout << "Knight(n/N) can move through other peices it moves 2 out and then 1 over making a L like shape " << endl;
+			cout << "Bishop(b/B) can move diagonly any number of spaces. It cannot pass through other peices" << endl;
+			cout << "Queen(q/Q)can move diagonly any number of spaces and itcan move any amount of spaces directly forward or  to the sides .It cannot pass through other peices"<< endl;	
+			cout <<" King(k/K) can only move 1 in any direction" << endl;
 		}
 		if ((input == "Play") || (input == "play")) {
 			play = 1;
