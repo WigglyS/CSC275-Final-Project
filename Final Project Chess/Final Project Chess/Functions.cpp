@@ -284,10 +284,10 @@ void Board::select() {
 				if ((Temp[0] == MoveX) && (Temp[1] == MoveY)) {
 					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl; 
 					if (Peices[i]->Gettype() == 'k') {
-						cout << Names[0] << "won the Game! (Uppercase Letters)" << endl;
+						cout << Names[0] << " won the Game! (Uppercase Letters)" << endl;
 						GameEnd = 1;
 						ofstream outfile;
-						outfile.open("Recorded Games");
+						outfile.open("Recorded Games",ofstream::app);
 						outfile << Names[0] << " Vs " << Names[1] << ", " << Names[0] << " won the game" << endl;
 						outfile.close();
 					}
@@ -295,7 +295,7 @@ void Board::select() {
 						cout << Names[1] <<" won the Game! (Lowercase letters)" << endl;
 						GameEnd = 1;
 						ofstream outfile;
-						outfile.open("Recorded Games");
+						outfile.open("Recorded Games", ofstream::app);
 						outfile << Names[0] << " Vs " << Names[1] << ", " << Names[1] << " won the game" << endl;
 						outfile.close();
 					}
@@ -323,7 +323,7 @@ void GameManager::Instructions(){
 	cout << "p/P = Pawn		r/R = Rook" << endl;
 	cout << "n/N = Knight		b/B = Bishop" << endl;
 	cout << "q/Q = Queen		k/K = King" << endl;
-	cout << "Type 'Help' for Rules and 'Play' to start the Game." << endl;
+	cout << "Type 'Help' for Rules, 'Results' for previous game results and 'Play' to start the Game." << endl;
 	int play = 0;
 	do {
 		string input;
@@ -333,6 +333,15 @@ void GameManager::Instructions(){
 		}
 		if ((input == "Play") || (input == "play")) {
 			play = 1;
+		}
+		if ((input == "Results") || (input == "results")) {
+			ifstream infile;
+			infile.open("Recorded Games");
+			string oneLine;
+			while (getline(infile, oneLine)) {
+				cout << oneLine << endl;
+			}
+			infile.close();
 		}
 	} while (play == 0);
 };
