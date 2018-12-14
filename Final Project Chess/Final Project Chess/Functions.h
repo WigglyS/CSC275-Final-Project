@@ -55,6 +55,7 @@ protected:
  public:
 	 King(int x, int y);
 	 bool move(int x, int y);
+	 ~King();
  };
 
 //board class to display the board and keep track of the peieces turns etc.
@@ -67,16 +68,21 @@ public:
 	void select();
 	void SetTurn(int t);
 	int Getturn();
+	int GameEnd;
 	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };
 private:
 	int turn;
+	
 	vector<Peice*>Peices;
 	
 };
 
 //GameManager class to hold all the miscelaneous stuff like instructions
-class GameManager {
+static class GameManager {
 public:
 	void Instructions();
+	int GetEnd();
+	void SetEnd(int i);
 private:
+	int End;
 };

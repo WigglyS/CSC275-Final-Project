@@ -48,8 +48,6 @@ bool Pawn::move(int x, int y) {
 		cout << "The peice is already on that space " << endl;
 		return false;
 	}
-		
-	
 };
 Pawn::Pawn(int x, int y) { Position.push_back(x); Position.push_back(y); }
 bool Rook::move(int x, int y) { 
@@ -72,6 +70,15 @@ bool King::move(int x, int y) {
 	return true; 
 };
 King::King(int x, int y) { Position.push_back(x); Position.push_back(y); }
+King::~King() {
+	if (Player == 0) {
+		cout << "The Uppercase Player won the Game!" << endl;
+	}
+	if (Player == 1) {
+		cout << "The Lowercase Player won the Game!" << endl;
+	}
+	
+};
 
 void Board::addpeice(Peice p) { Peices.push_back(&p); };
 void Board::removePeice(Peice* p) { };
@@ -272,16 +279,24 @@ void Board::select() {
 			for (int i = 0; i < Peices.size(); i++) {
 				Temp = Peices[i]->GetPosition();
 				if ((Temp[0] == MoveX) && (Temp[1] == MoveY)) {
-					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl;
-					delete Peices[i];
+					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl; 
+					if (Peices[i]->Gettype() == 'k') {
+						cout << "The Uppercase Player won the Game!" << endl;
+						GameEnd = 1;
+					}
+					if (Peices[i]->Gettype() == 'K') {
+						cout << "The Lowercase Player won the Game!" << endl;
+						GameEnd = 1;
+					}
+					Peices.erase(Peices.begin()+(i));
+					
 				}
 			}
 			rows[MoveY][MoveX] = Selected->Gettype();
 			vector<int>temp = Selected->GetPosition();
 			rows[temp[1]][temp[0]] = '.';
 			Selected->SetPosition(MoveX, MoveY);
-			validMove = 1;
-		
+			validMove = 1;	
 		}
 		else {
 			cout << "That is not a Valid Move" << endl;
@@ -310,4 +325,7 @@ void GameManager::Instructions(){
 		}
 	} while (play == 0);
 };
+int GameManager::GetEnd() { return End; };
+void GameManager::SetEnd(int i) { End = i; };
+
 
