@@ -14,8 +14,11 @@ public:
 	void SetPosition(int x, int y);
 	void SetPlayer(int P);
 	int GetPlayer();
-	bool move();
+	bool move(int x, int y);
+	void Settype(char t);
+	char Gettype();
 protected:
+	char type;
 	vector<int>Position;
 	char Player;
 };
@@ -25,6 +28,8 @@ protected:
  public:
 	 Pawn(int x, int y);
 	 bool move(int x, int y);
+ private:
+	 char type;
  };
  class Rook : public Peice {
  public:
@@ -62,10 +67,11 @@ public:
 	void select();
 	void SetTurn(int t);
 	int Getturn();
+	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };
 private:
 	int turn;
 	vector<Peice*>Peices;
-	string rows[9] = { "........","........", "........", "........", "........", "........", "........", "........" };;
+	
 };
 
 //GameManager class to hold all the miscelaneous stuff like instructions

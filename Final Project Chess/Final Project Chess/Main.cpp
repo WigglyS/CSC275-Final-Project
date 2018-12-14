@@ -16,7 +16,7 @@ void main() {
 		if (B.Getturn() == 1) {
 			B.SetTurn(0);
 		}
-		if (B.Getturn() == 0) {
+		else if (B.Getturn() == 0) {
 			B.SetTurn(1);
 		}
 	}while(GameLoop == 0);

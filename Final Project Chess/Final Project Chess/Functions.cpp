@@ -7,11 +7,40 @@ vector<int> Peice::GetPosition() { return Position; };
 void Peice::SetPosition(int x, int y) { Position[0] = x; Position[1] = y; };
 void Peice::SetPlayer(int P) { Player = P; };
 int Peice::GetPlayer() { return Player; };
+void Peice::Settype(char t) { type = t; };
+char Peice::Gettype() { return type; };
 
 
 //Move functions that returns true if spot is valid to move to and constructors
-bool Peice::move() { return true; };
-bool Pawn::move(int x, int y) { return true; };
+bool Peice::move(int x, int y) { return true; };
+bool Pawn::move(int x, int y) {
+	if ((Position[0] != x) || (Position[1] != y)) {
+		if (Player == 0) {
+			if ((Position[0] == x) && (Position[1] + 1 == y)) {
+				return true;
+			}
+			else {
+				cout << "That is not a Valid move" << endl;
+				return false;
+			}
+		}
+		if (Player == 1) {
+			if ((Position[0] == x) && (Position[1] - 1 == y)) {
+				return true;
+			}
+			else {
+				cout << "That is not a Valid move" << endl;
+				return false;
+			}
+		}
+	}
+	else {
+		cout << "The peice is already on that space " << endl;
+		return false;
+	}
+		
+	
+};
 Pawn::Pawn(int x, int y) { Position.push_back(x); Position.push_back(y); }
 bool Rook::move(int x, int y) { return true; };
 Rook::Rook(int x, int y) { Position.push_back(x); Position.push_back(y); }
@@ -64,98 +93,121 @@ void Board::Reset() {
 	Peices.clear();
 	turn = 1;
 	for (int i = 0; i < 8; i++){
-		Peices.push_back(new Pawn(1,i));
+		Peices.push_back(new Pawn(i,1));
 		//Peices[i]->SetPosition(1, i);
 		Peices[i]->SetPlayer(0);
+		Peices[i]->Settype('p');
 		rows[1][i] = 'p';
 	}
 	Peice* temp = new Rook(0, 0);
 
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
+	temp->Settype('r');
 	rows[0][0] = 'r';
-
-	temp = new Rook(0, 7);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][7] = 'r';
-	
-	temp = new Bishop(0, 2);
-	Peices.push_back(new Bishop(0, 2));
-	temp->SetPlayer(0);
-	rows[0][2] = 'b';
-
-	temp = new Bishop(0, 5);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][5] = 'b';
-
-	temp = new Knight(0, 1);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][1] = 'n';
-
-	temp = new Knight(0, 6);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][6] = 'n';
-
-	temp = new King(0, 4);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][4] = 'k';
-
-	temp = new Queen(0, 3);
-	Peices.push_back(temp);
-	temp->SetPlayer(0);
-	rows[0][3] = 'q';
-
-	for (int i = 0; i < 8; i++) {
-		Peices.push_back(new Pawn(6, i));
-		Peices[i]->SetPosition(6, i);
-		Peices[i]->SetPlayer(1);
-		rows[6][i] = 'P';
-	}
 
 	temp = new Rook(7, 0);
 	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('r');
+	rows[0][7] = 'r';
+	
+	temp = new Bishop(2, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('b');
+	rows[0][2] = 'b';
+
+	temp = new Bishop(5, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('b');
+	rows[0][5] = 'b';
+
+	temp = new Knight(1, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('n');
+	rows[0][1] = 'n';
+
+	temp = new Knight(6, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('n');
+	rows[0][6] = 'n';
+
+	temp = new King(4, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0);
+	temp->Settype('k');
+	rows[0][4] = 'k';
+
+	temp = new Queen(3, 0);
+	Peices.push_back(temp);
+	temp->SetPlayer(0); 
+	temp->Settype('Q');
+	rows[0][3] = 'q';
+
+	for (int i = 0; i < 8; i++) {
+		temp = (new Pawn(i, 6));
+		Peices.push_back(temp);
+		temp->SetPosition(i, 6);
+		temp->SetPlayer(1); 
+		temp->Settype('P');
+		rows[6][i] = 'P';
+	}
+
+	temp = new Rook(0, 7);
+	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('R');
 	rows[7][0] = 'R';
 
 	temp = new Rook(7, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('R');
 	rows[7][7] = 'R';
 
-	temp = new Bishop(7, 2);
+	temp = new Bishop(2, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('B');
 	rows[7][2] = 'B';
 
-	temp = new Bishop(7, 5);
+	temp = new Bishop(5, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('B');
 	rows[7][5] = 'B';
 
-	temp = new Knight(7, 1);
+	temp = new Knight(1, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('N');
 	rows[7][1] = 'N';
 
-	temp = new Knight(7, 6);
+	temp = new Knight(6, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('N');
 	rows[7][6] = 'N';
 
-	temp = new King(7, 4);
+	temp = new King(4, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('K');
 	rows[7][4] = 'K';
 
-	temp = new Queen(7, 3);
+	temp = new Queen(3, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
+	temp->Settype('Q');
 	rows[7][3] = 'Q';
+	for (int i = 0; i < Peices.size(); i++) {
+		vector<int >DisplayVect = Peices[i]->GetPosition();
+		rows[DisplayVect[0]][DisplayVect[1]] = Peices[i]->Gettype();
+	}
 };
 
 // function where the player selects the peice they want to move and moves it
@@ -163,6 +215,7 @@ void Board::select() {
 	//first displays which players turn it is
 	int X;
 	int Y;
+	cout << turn;
 	if (turn == 1) {
 		cout << endl << "It is the Uppercase letters persons turn" << endl;
 	}
@@ -172,7 +225,7 @@ void Board::select() {
 	
 	// has the player pick the peice they want to move
 	vector<int> Temp;
-	vector<int> coordinents = { 0,0 };
+	
 	int HasSelected = 0;
 	Peice* Selected = NULL;
 	do {
@@ -182,13 +235,11 @@ void Board::select() {
 		cout << endl << "Enter the Y coordinate of the space of the peice you would like to move : ";
 		cin >> Y;
 
-		coordinents[0]= X;
-		coordinents[1] =Y;
 
 
 		for (int i = 0; i < Peices.size(); i++) {
 			Temp = Peices[i]->GetPosition();
-			if ((Temp[0] == coordinents[0]) && (Temp[1] == coordinents[1])) {
+			if ((Temp[0] == X) && (Temp[1] == Y)) {
 				if ((Peices[i]->GetPlayer()) == turn) {
 					Selected = Peices[i];
 					HasSelected = 1;
@@ -216,10 +267,12 @@ void Board::select() {
 		cout << endl << "Enter the Y coordinate of the space you would like to move to : ";
 		cin >> MoveY;
 
-		if (Selected->move() == true) {
+		if (Selected->move(MoveX,MoveY) == true) {
 			//Actually move the peice
-			cout << "valid Move";
-			rows[MoveY][MoveX] = '1';
+			//cout << "valid Move";
+			rows[MoveY][MoveX] = Selected->Gettype();
+			vector<int>temp = Selected->GetPosition();
+			rows[temp[1]][temp[0]] = '.';
 			validMove = 1;
 		}
 		else {
