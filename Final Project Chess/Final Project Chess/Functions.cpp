@@ -97,116 +97,99 @@ void Board::Reset() {
 		//Peices[i]->SetPosition(1, i);
 		Peices[i]->SetPlayer(0);
 		Peices[i]->Settype('p');
-		rows[1][i] = 'p';
 	}
 	Peice* temp = new Rook(0, 0);
 
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('r');
-	rows[0][0] = 'r';
 
 	temp = new Rook(7, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('r');
-	rows[0][7] = 'r';
 	
 	temp = new Bishop(2, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('b');
-	rows[0][2] = 'b';
 
 	temp = new Bishop(5, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('b');
-	rows[0][5] = 'b';
-
+	
 	temp = new Knight(1, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('n');
-	rows[0][1] = 'n';
-
+	
 	temp = new Knight(6, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('n');
-	rows[0][6] = 'n';
-
+	
 	temp = new King(4, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0);
 	temp->Settype('k');
-	rows[0][4] = 'k';
-
+	
 	temp = new Queen(3, 0);
 	Peices.push_back(temp);
 	temp->SetPlayer(0); 
 	temp->Settype('Q');
-	rows[0][3] = 'q';
-
+	
 	for (int i = 0; i < 8; i++) {
 		temp = (new Pawn(i, 6));
 		Peices.push_back(temp);
 		temp->SetPosition(i, 6);
 		temp->SetPlayer(1); 
 		temp->Settype('P');
-		rows[6][i] = 'P';
 	}
 
 	temp = new Rook(0, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('R');
-	rows[7][0] = 'R';
-
+	
 	temp = new Rook(7, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('R');
-	rows[7][7] = 'R';
-
+	
 	temp = new Bishop(2, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('B');
-	rows[7][2] = 'B';
-
+	
 	temp = new Bishop(5, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('B');
-	rows[7][5] = 'B';
-
+	
 	temp = new Knight(1, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('N');
-	rows[7][1] = 'N';
-
+	
 	temp = new Knight(6, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('N');
-	rows[7][6] = 'N';
-
+	
 	temp = new King(4, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('K');
-	rows[7][4] = 'K';
-
+	
 	temp = new Queen(3, 7);
 	Peices.push_back(temp);
 	temp->SetPlayer(1);
 	temp->Settype('Q');
-	rows[7][3] = 'Q';
+	
 	for (int i = 0; i < Peices.size(); i++) {
 		vector<int >DisplayVect = Peices[i]->GetPosition();
-		rows[DisplayVect[0]][DisplayVect[1]] = Peices[i]->Gettype();
+		rows[DisplayVect[1]][DisplayVect[0]] = Peices[i]->Gettype();
 	}
 };
 
