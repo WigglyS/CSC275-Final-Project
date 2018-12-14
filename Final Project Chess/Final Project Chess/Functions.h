@@ -83,8 +83,4 @@ private:
 static class GameManager {
 public:
 	void Instructions();
-	int GetEnd();
-	void SetEnd(int i);
-private:
-	int End;
 };

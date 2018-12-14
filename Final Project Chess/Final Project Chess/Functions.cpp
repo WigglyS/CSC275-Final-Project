@@ -1,6 +1,6 @@
 #include "Functions.h"
 
-
+// basci functions for the peices
 Peice::Peice() {};
 Peice::Peice(int x, int y) { Position.push_back(x); Position.push_back(y); };
 vector<int> Peice::GetPosition() { return Position; };
@@ -11,7 +11,7 @@ void Peice::Settype(char t) { type = t; };
 char Peice::Gettype() { return type; };
 
 
-//Move functions that returns true if spot is valid to move to and constructors
+//Move functions that returns true if spot is valid to move to and constructors for all of the peices
 bool Peice::move(int x, int y) { return true; };
 //pawns can move 2 forward on their first move but every other only one // cant quite figure out how to make them attack diagnally yet so theyll just have to work like shogi pawns for now :/
 bool Pawn::move(int x, int y) {
@@ -82,6 +82,7 @@ King::~King() {
 	
 };
 
+//basic functions for the board
 void Board::addpeice(Peice p) { Peices.push_back(&p); };
 void Board::removePeice(Peice* p) { };
 int Board::Getturn() { return turn; };
@@ -258,6 +259,7 @@ void Board::select() {
 			cout << "other exception found" << endl;
 		}
 
+		// searchs each peice in the list to see if one has a position that the user selected
 		for (int i = 0; i < Peices.size(); i++) {
 			Temp = Peices[i]->GetPosition();
 			if ((Temp[0] == X) && (Temp[1] == Y)) {
@@ -301,11 +303,14 @@ void Board::select() {
 			cout << "other exception found" << endl;
 		}
 
+		//moves the peice and destroys the opponents peice if it is in that spot
 		if (Selected->move(MoveX,MoveY) == true) {
 			for (int i = 0; i < Peices.size(); i++) {
 				Temp = Peices[i]->GetPosition();
 				if ((Temp[0] == MoveX) && (Temp[1] == MoveY)) {
 					cout << "Player " << Peices[i]->GetPlayer() << "'s " << Peices[i]->Gettype() << " has been captured" << endl; 
+
+					//if one of the players capture the opponents king then the games ends and the stats are added to a file
 					if (Peices[i]->Gettype() == 'k') {
 						cout << Names[0] << " won the Game! (Uppercase Letters)" << endl;
 						GameEnd = 1;
@@ -363,6 +368,7 @@ void GameManager::Instructions(){
 		if ((input == "Play") || (input == "play")) {
 			play = 1;
 		}
+		//displays the results of the previous games recorded in the file
 		if ((input == "Results") || (input == "results")) {
 			ifstream infile;
 			infile.open("Recorded Games");
@@ -374,7 +380,6 @@ void GameManager::Instructions(){
 		}
 	} while (play == 0);
 };
-int GameManager::GetEnd() { return End; };
-void GameManager::SetEnd(int i) { End = i; };
+
 
 

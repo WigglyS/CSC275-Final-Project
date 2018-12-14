@@ -30,7 +30,6 @@ void main() {
 
 	}while(B.GameEnd == 0);
 	
-		// use destructoron king object to call game over maybe?
 	cout << "Thank you for playing" << endl;
 	system("pause");
 }
