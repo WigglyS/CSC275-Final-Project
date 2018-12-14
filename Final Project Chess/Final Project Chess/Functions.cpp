@@ -13,7 +13,7 @@ char Peice::Gettype() { return type; };
 
 //Move functions that returns true if spot is valid to move to and constructors
 bool Peice::move(int x, int y) { return true; };
-//pawns can move 2 forward on their first move but every other only one // cant quite figure out how to make them attack diagnally yet
+//pawns can move 2 forward on their first move but every other only one // cant quite figure out how to make them attack diagnally yet so theyll just have to work like shogi pawns for now :/
 bool Pawn::move(int x, int y) {
 	if ((Position[0] != x) || (Position[1] != y)) {
 		if (Player == 0) {
@@ -108,7 +108,7 @@ void Board::Display() {
 				cout << " ";
 			}
 		}
-		cout << "=" << endl;//
+		cout << "= " << Numbering[x] << endl;//
 	}
 	cout << "  =====================" << endl;//
 	cout << "     ";
@@ -240,13 +240,23 @@ void Board::select() {
 	int HasSelected = 0;
 	Peice* Selected = NULL;
 	do {
-
-		cout << endl << "Enter the x coordinate of the space of the peice you would like to move : ";
-		cin >> X;
-		cout << endl << "Enter the Y coordinate of the space of the peice you would like to move : ";
-		cin >> Y;
-
-
+		try {
+			cout <<  "Enter the x coordinate of the space of the peice you would like to move : ";
+			cin >> X;
+			cout << "Enter the Y coordinate of the space of the peice you would like to move : ";
+			cin >> Y;
+			
+			if (((X > 7) || (Y > 7)) || ((X < 0) || (Y < 0))) {
+				string s = "Enter a Valid Coordinate";
+				throw s;
+			}
+		}
+		catch (string message){
+			cout << message << endl;
+		}
+		catch (...) {
+			cout << "other exception found" << endl;
+		}
 
 		for (int i = 0; i < Peices.size(); i++) {
 			Temp = Peices[i]->GetPosition();
@@ -273,10 +283,23 @@ void Board::select() {
 		int MoveX;
 		int MoveY;
 
-		cout << endl << "Enter the x coordinate of the space you would like to move to : ";
-		cin >> MoveX;
-		cout << endl << "Enter the Y coordinate of the space you would like to move to : ";
-		cin >> MoveY;
+		try {
+			cout <<  "Enter the x coordinate of the space you would like to move to : ";
+			cin >> MoveX;
+			cout <<  "Enter the Y coordinate of the space you would like to move to : ";
+			cin >> MoveY;
+
+			if (((MoveX > 7) || (MoveY > 7)) || ((MoveX < 0) || (MoveY < 0))) {
+				string s = "Enter a Valid Coordinate";
+				throw s;
+			}
+		}
+		catch (string message) {
+			cout << message << endl;
+		}
+		catch (...) {
+			cout << "other exception found" << endl;
+		}
 
 		if (Selected->move(MoveX,MoveY) == true) {
 			for (int i = 0; i < Peices.size(); i++) {
@@ -329,6 +352,7 @@ void GameManager::Instructions(){
 		string input;
 		cin >> input;
 		if ((input == "Help") || (input == "help")){
+			cout << "the objective is to take the other persons king" << endl;
 			cout << "Pawns(p/P) can move only forward in a straight line. if its their first move they can move 2 spaces otherwise they can only move one. It cannot pass through other peices " << endl;
 			cout << "Rook(r/R) can move any amount of spaces directly forward or  to the sides. It cannot pass through other peices" << endl;
 			cout << "Knight(n/N) can move through other peices it moves 2 out and then 1 over making a L like shape " << endl;
